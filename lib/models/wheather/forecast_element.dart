@@ -6,11 +6,11 @@ import 'package:weather_app/models/wheather/main_weather.dart';
 class ForecastElement {
   int timestamp;
   MainWheater mainWheater;
-  DescribedWheather describedWheather;
+  DescribedWheather describedWeather;
   ForecastElement({
     this.timestamp,
     this.mainWheater,
-    this.describedWheather,
+    this.describedWeather,
   });
 
   static ForecastElement fromMap(Map<String, dynamic> map) {
@@ -19,7 +19,7 @@ class ForecastElement {
     return ForecastElement(
       timestamp: map['dt'],
       mainWheater: MainWheater.fromMap(map['main']),
-      describedWheather: DescribedWheather.fromMap(map['weather'][0]),
+      describedWeather: DescribedWheather.fromMap(map['weather'][0]),
     );
   }
 

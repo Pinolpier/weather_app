@@ -18,7 +18,7 @@ class MainWheater {
     return MainWheater(
       temperature: map['temp'] * 1.0,
       feelsLike: map['feels_like'] * 1.0,
-      pressure: map['grnd_level'],
+      pressure: map['grnd_level'] != null ? map['grnd_level'] : map['pressure'],
       humidity: map['humidity'],
     );
   }

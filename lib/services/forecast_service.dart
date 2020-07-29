@@ -1,5 +1,4 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:weather_app/models/wheather/forecast.dart';
 
 Future<Forecast> fetchWeatherForecast(int cityId) async {
