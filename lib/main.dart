@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/models/wheather/forecast.dart';
+import 'package:weather_app/services/forecast_service.dart';
 
-void main() {
+Future<void> main() async {
+  Forecast forecast = await fetchWeatherForecast(2867616);
+  print("Test done, breakpoint here!");
   runApp(MyApp());
 }
 
