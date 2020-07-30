@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
-
-import 'package:weather_app/models/wheather/forecast.dart';
-import 'package:weather_app/models/wheather/forecast_element.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/screens/home.dart';
-import 'package:weather_app/services/current_weather_service.dart';
-import 'package:weather_app/services/forecast_service.dart';
+
+import 'models/wheather/complete_weather.dart';
 
 Future<void> main() async {
-  Forecast forecast = await fetchWeatherForecast(2867616);
-  ForecastElement currentWeather = await fetchCurrentWeather(2867616);
-  print("Test done, breakpoint here!");
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider<CompleteWeatherFuture>(
+      create: (BuildContext context) => CompleteWeatherFuture(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  Forecast forecast;
-  ForecastElement currentWeather;
-  MyApp(this.forecast, this.currentWeather, {Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,7 +35,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeScreen(forecast.city, currentWeather, forecast),
+      home: HomeScreen(),
     );
   }
 }

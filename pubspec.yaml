@@ -22,6 +22,7 @@ environment:
 
 dependencies:
   http: ^0.12.2
+  provider: ^4.3.1
   flutter:
     sdk: flutter
 
@@ -39,7 +40,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  assets:
+    - assets/weather_icons/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
