@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 
+import 'package:weather_app/models/wheather/current_and_daily_weather.dart';
 import 'package:weather_app/models/wheather/forecast.dart';
 import 'package:weather_app/models/wheather/forecast_element.dart';
 import 'package:weather_app/screens/widgets/forecast_widget.dart';
+import 'package:weather_app/services/current_and_daily_weather_service.dart';
 import 'package:weather_app/services/current_weather_service.dart';
 import 'package:weather_app/services/forecast_service.dart';
 
 class CompleteWeather {
-  final ForecastElement currentWeather;
+  final CurrentAndDailyWeather currentAndDailyWeather;
   final Forecast weatherForecast;
   List<Container> dayViews;
   CompleteWeather({
-    this.currentWeather,
+    this.currentAndDailyWeather,
     this.weatherForecast,
     this.dayViews,
   });
 
   static Future<CompleteWeather> reloadWeather(int cityId) async {
     Forecast forecast = await fetchWeatherForecast(cityId);
-    ForecastElement weather = await fetchCurrentWeather(cityId);
+    CurrentAndDailyWeather weather = await fetchCurrentAndDailyWeather(
+        forecast.city.coord.lat, forecast.city.coord.lon);
+    // ForecastElement weather = await fetchCurrentAndDailyWeather(cityId);
 
     List<Forecast> days = [Forecast(city: forecast.city, list: [])];
     for (ForecastElement i in forecast.list) {
@@ -41,13 +45,10 @@ class CompleteWeather {
     for (Forecast i in days) {
       List<ForecastWidget> forecastWidgetList = [];
       int count = 0;
-      print("i.list length: ${i.list.length}");
       for (ForecastElement j in i.list) {
         forecastWidgetList.add(ForecastWidget(j));
         count += 1;
-        print("Count now is: $count");
       }
-      print("ForecastWidgetListLength: ${forecastWidgetList.length}");
       if (forecastWidgetList.length != 0) {
         k.add(Container(
           height: 150,
@@ -66,15 +67,17 @@ class CompleteWeather {
       }
     }
     return CompleteWeather(
-        currentWeather: weather, weatherForecast: forecast, dayViews: k);
+        currentAndDailyWeather: weather,
+        weatherForecast: forecast,
+        dayViews: k);
   }
 }
 
 class CompleteWeatherFuture extends ChangeNotifier {
   Future<CompleteWeather> future;
   CompleteWeatherFuture() {
-    future = CompleteWeather.reloadWeather(
-        2867616); //ToDo change to current positions cityId
+    future = CompleteWeather.reloadWeather(//Thist is the first load to
+        0); //ToDo change to current positions cityId
   }
 
   void reload(int cityId) {

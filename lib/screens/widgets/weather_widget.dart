@@ -33,11 +33,11 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                                 width: 50,
                               ),
                               Text(
-                                "${weather.currentWeather.mainWeather.temperature}°C",
+                                "${weather.currentAndDailyWeather.current.temperature}°C",
                                 style: TextStyle(fontSize: 50.0),
                               ),
                               Text(
-                                "Feels like ${weather.currentWeather.mainWeather.feelsLike}°C",
+                                "Feels like ${weather.currentAndDailyWeather.current.feelsLike}°C",
                                 style: TextStyle(fontSize: 20),
                               ),
                               Text(
@@ -49,13 +49,13 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                                 width: 50,
                               ),
                               Text(
-                                weather.currentWeather.describedWeather
-                                    .description,
+                                weather.currentAndDailyWeather.current
+                                    .describedWeather.description,
                                 style: TextStyle(fontSize: 20),
                               ),
                               Container(
                                 child: Image.asset(
-                                  "assets/weather_icons/${weather.currentWeather.describedWeather.iconId}.png",
+                                  "assets/weather_icons/${weather.currentAndDailyWeather.current.describedWeather.iconId}.png",
                                   width: 100,
                                   height: 100,
                                 ),
@@ -84,7 +84,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     )),
               );
             } else if (snapshot.hasError) {
-              //TODO error
+              return SizedBox();
             } else {
               return SizedBox(
                 child: CircularProgressIndicator(),

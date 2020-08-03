@@ -12,8 +12,8 @@ class Coordinates {
     if (map == null) return null;
 
     return Coordinates(
-      lat: map['lat'],
-      lon: map['lon'],
+      lat: map['lat'] * 1.0,
+      lon: map['lon'] * 1.0,
     );
   }
 

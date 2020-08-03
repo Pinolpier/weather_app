@@ -1,9 +1,19 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:weather_app/models/wheather/forecast.dart';
 
 Future<Forecast> fetchWeatherForecast(int cityId) async {
-  final response = await http.get(
-      "https://api.openweathermap.org/data/2.5/forecast?id=$cityId&units=metric&appid=7328c736ae7355ac59b28bf4a1ce2d68");
+  http.Response response;
+  if (cityId != 0) {
+    response = await http.get(
+        "https://api.openweathermap.org/data/2.5/forecast?id=$cityId&units=metric&appid=7328c736ae7355ac59b28bf4a1ce2d68");
+  } else {
+    //Weather for current location is expected
+    Position position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    response = await http.get(
+        "https://api.openweathermap.org/data/2.5/forecast?lat=${position.latitude}&lon=${position.longitude}&units=metric&appid=7328c736ae7355ac59b28bf4a1ce2d68");
+  }
   if (response.statusCode == 200) {
     return Forecast.fromJson(response.body);
   } else {

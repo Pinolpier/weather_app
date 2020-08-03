@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/screens/home.dart';
+import 'package:weather_app/services/SharedPrefs.dart';
 
 import 'models/wheather/complete_weather.dart';
 
 Future<void> main() async {
-  runApp(
-    ChangeNotifierProvider<CompleteWeatherFuture>(
-      create: (BuildContext context) => CompleteWeatherFuture(),
-      child: MyApp(),
-    ),
-  );
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<CompleteWeatherFuture>(
+          create: (BuildContext context) => CompleteWeatherFuture()),
+      ChangeNotifierProvider<SharedPrefs>(
+          create: (BuildContext context) => SharedPrefs())
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
