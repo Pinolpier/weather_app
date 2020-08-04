@@ -41,6 +41,4 @@ class _DailyTemp {
       max: (map['max'] * 10.0).round() / 10.0,
     );
   }
-
-  static _DailyTemp fromJson(String source) => fromMap(json.decode(source));
 }

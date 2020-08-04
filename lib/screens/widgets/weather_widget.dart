@@ -24,44 +24,58 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     // color: Colors.limeAccent,
                     child: Column(
                   children: <Widget>[
-                    Container(
-                      width: 500,
-                      // color: Colors.lightGreenAccent,
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 20,
-                            width: 50,
-                          ),
-                          Text(
-                            "${weather.currentAndDailyWeather.current.temperature}°C",
-                            style: TextStyle(fontSize: 50.0),
-                          ),
-                          Text(
-                            "Feels like ${weather.currentAndDailyWeather.current.feelsLike}°C",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          Text(
-                            "${weather.weatherForecast.city.name}",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          SizedBox(
-                            height: 30,
-                            width: 50,
-                          ),
-                          Text(
-                            weather.currentAndDailyWeather.current
-                                .describedWeather.description,
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          Container(
-                            child: Image.asset(
-                              "assets/weather_icons/${weather.currentAndDailyWeather.current.describedWeather.iconId}.png",
-                              width: 100,
-                              height: 100,
+                    RefreshIndicator(
+                      onRefresh: () => future.update(),
+                      child: Container(
+                        height: 276,
+                        width: 500,
+                        // color: Colors.lightGreenAccent,
+                        child: ListView(
+                          children: [
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 20,
+                                    width: 50,
+                                  ),
+                                  Text(
+                                    "${weather.currentAndDailyWeather.current.temperature}°C",
+                                    style: TextStyle(
+                                        fontSize: 50.0, color: Colors.black),
+                                  ),
+                                  Text(
+                                    "Feels like ${weather.currentAndDailyWeather.current.feelsLike}°C",
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.black),
+                                  ),
+                                  Text(
+                                    "${weather.weatherForecast.city.name}",
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.black),
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                    width: 50,
+                                  ),
+                                  Text(
+                                    weather.currentAndDailyWeather.current
+                                        .describedWeather.description,
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.black),
+                                  ),
+                                  Container(
+                                    child: Image.asset(
+                                      "assets/weather_icons/${weather.currentAndDailyWeather.current.describedWeather.iconId}.png",
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Container(
@@ -87,7 +101,13 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 )),
               );
             } else if (snapshot.hasError) {
-              return SizedBox();
+              return Container(
+                color: Colors.red,
+                child: Text(
+                  "Error has occured in weather_widget.dart",
+                  style: TextStyle(color: Colors.white, fontSize: 30),
+                ),
+              );
             } else {
               return SizedBox(
                 child: CircularProgressIndicator(),

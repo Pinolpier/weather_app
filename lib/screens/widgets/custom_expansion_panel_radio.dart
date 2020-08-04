@@ -35,7 +35,7 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
         },
         child: Container(
           height: 80,
-          color: Colors.purpleAccent,
+          // color: Colors.purpleAccent,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,

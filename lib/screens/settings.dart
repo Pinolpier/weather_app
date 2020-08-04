@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/models/city/autocomplete_location.dart';
 import 'package:weather_app/models/wheather/complete_weather.dart';
 import 'package:weather_app/services/SharedPrefs.dart';
@@ -12,7 +11,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _currentLocation; //TODO here I need sharedPrefs synchronously
+  bool _currentLocation;
   @override
   Widget build(BuildContext context) {
     return Consumer<SharedPrefs>(builder: (context, prefs, child) {
@@ -74,7 +73,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         itemBuilder: (context, suggestion) {
                                           if (suggestion.runtimeType !=
                                               WeatherServiceLocation) {
-                                            //TODO Throw error, this should probably never happen!
                                             print(
                                                 "Suggestion in AutoComplete List item Builder is of type ${suggestion.runtimeType}");
                                             return ListTile(
@@ -112,8 +110,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ));
               } else if (snapshot.hasError) {
-                //TODO show error message
-                return null;
+                return Container(
+                  color: Colors.red,
+                  child: Text(
+                    "Error has occured in settings.dart",
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  ),
+                );
               } else {
                 return SizedBox(
                   child: CircularProgressIndicator(),

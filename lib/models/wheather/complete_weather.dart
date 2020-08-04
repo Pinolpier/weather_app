@@ -7,7 +7,6 @@ import 'package:weather_app/models/wheather/forecast_element.dart';
 import 'package:weather_app/screens/widgets/custom_expansion_panel_radio.dart';
 import 'package:weather_app/screens/widgets/forecast_widget.dart';
 import 'package:weather_app/services/current_and_daily_weather_service.dart';
-import 'package:weather_app/services/current_weather_service.dart';
 import 'package:weather_app/services/forecast_service.dart';
 
 class CompleteWeather {
@@ -182,13 +181,20 @@ class CompleteWeather {
 
 class CompleteWeatherFuture extends ChangeNotifier {
   Future<CompleteWeather> future;
+  int cityId;
   CompleteWeatherFuture() {
+    this.cityId = 0;
     future = CompleteWeather.reloadWeather(//Thist is the first load to
         0); //ToDo change to current positions cityId
   }
 
   void reload(int cityId) {
+    this.cityId = cityId;
     future = CompleteWeather.reloadWeather(cityId);
     notifyListeners();
+  }
+
+  Future<void> update() async {
+    reload(this.cityId);
   }
 }
