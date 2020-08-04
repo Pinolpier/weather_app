@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:weather_app/models/wheather/complete_weather.dart';
+import 'package:weather_app/screens/widgets/forecast_list_widget.dart';
 
 class WeatherWidget extends StatefulWidget {
   _WeatherWidgetState createState() => _WeatherWidgetState();
@@ -20,68 +21,70 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               CompleteWeather weather = snapshot.data;
               return Center(
                 child: Container(
-                    color: Colors.limeAccent,
+                    // color: Colors.limeAccent,
                     child: Column(
-                      children: <Widget>[
-                        Container(
-                          width: 500,
-                          color: Colors.lightGreenAccent,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: 20,
-                                width: 50,
-                              ),
-                              Text(
-                                "${weather.currentAndDailyWeather.current.temperature}°C",
-                                style: TextStyle(fontSize: 50.0),
-                              ),
-                              Text(
-                                "Feels like ${weather.currentAndDailyWeather.current.feelsLike}°C",
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              Text(
-                                "${weather.weatherForecast.city.name}",
-                                style: TextStyle(fontSize: 15),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                width: 50,
-                              ),
-                              Text(
-                                weather.currentAndDailyWeather.current
-                                    .describedWeather.description,
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              Container(
-                                child: Image.asset(
-                                  "assets/weather_icons/${weather.currentAndDailyWeather.current.describedWeather.iconId}.png",
-                                  width: 100,
-                                  height: 100,
-                                ),
-                              ),
-                            ],
+                  children: <Widget>[
+                    Container(
+                      width: 500,
+                      // color: Colors.lightGreenAccent,
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 20,
+                            width: 50,
                           ),
-                        ),
-                        Container(
-                          color: Colors.lightGreenAccent,
-                          height: 315,
-                          child: ListView.separated(
-                            itemCount: weather.dayViews.length,
-                            itemBuilder: (context, index) =>
-                                weather.dayViews[index],
-                            scrollDirection: Axis.vertical,
-                            separatorBuilder: (context, index) => const Divider(
-                              indent: 30,
-                              endIndent: 20,
-                              height: 10,
-                              thickness: 2.5,
-                              color: Colors.green,
+                          Text(
+                            "${weather.currentAndDailyWeather.current.temperature}°C",
+                            style: TextStyle(fontSize: 50.0),
+                          ),
+                          Text(
+                            "Feels like ${weather.currentAndDailyWeather.current.feelsLike}°C",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Text(
+                            "${weather.weatherForecast.city.name}",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          SizedBox(
+                            height: 30,
+                            width: 50,
+                          ),
+                          Text(
+                            weather.currentAndDailyWeather.current
+                                .describedWeather.description,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Container(
+                            child: Image.asset(
+                              "assets/weather_icons/${weather.currentAndDailyWeather.current.describedWeather.iconId}.png",
+                              width: 100,
+                              height: 100,
                             ),
                           ),
-                        ),
-                      ],
-                    )),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 315,
+                      // child: ListView.separated(
+                      //   itemCount: weather.dayViews.length,
+                      //   itemBuilder: (context, index) =>
+                      //       weather.dayViews[index],
+                      //   scrollDirection: Axis.vertical,
+                      //   separatorBuilder: (context, index) => const Divider(
+                      //     indent: 30,
+                      //     endIndent: 20,
+                      //     height: 10,
+                      //     thickness: 2.5,
+                      //     color: Colors.black,
+                      //   ),
+                      // ),
+                      child: ForecastListWidget(
+                        list: weather.dayViews,
+                      ),
+                    ),
+                  ],
+                )),
               );
             } else if (snapshot.hasError) {
               return SizedBox();
