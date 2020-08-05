@@ -80,7 +80,7 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
         curve: Curves.easeInOut,
         height: isExpanded ? 140 : 0,
         child: ListView.separated(
-            padding: EdgeInsets.all(10),
+            // padding: EdgeInsets.all(10),
             itemCount: widget.forecastWidgetList.length,
             itemBuilder: (context, index) => widget.forecastWidgetList[index],
             scrollDirection: Axis.horizontal,

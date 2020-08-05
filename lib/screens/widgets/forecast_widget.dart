@@ -23,18 +23,20 @@ class _ForecastWidgetState extends State<ForecastWidget> {
         (time.minute < 10 ? "0${time.minute}" : "${time.minute}");
     return Container(
       color: Colors.white24,
-      child: Column(
-        children: <Widget>[
-          Text(timeString,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-          Image.asset(
-            "assets/weather_icons/${widget.forecast.describedWeather.iconId}.png",
-            width: 80,
-            height: 80,
-          ),
-          Text("${widget.forecast.mainWeather.temperature}°C",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Text(timeString,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+            Image.asset(
+              "assets/weather_icons/${widget.forecast.describedWeather.iconId}.png",
+              width: 80,
+              height: 80,
+            ),
+            Text("${widget.forecast.mainWeather.temperature}°C",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+          ],
+        ),
       ),
     );
   }
