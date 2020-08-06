@@ -14,8 +14,6 @@ class Forecast {
 
   static Forecast fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
-    // print(map['list']); //Liste von Forecast Objekten
     City city = City.fromMap(map['city']);
     List<ForecastElement> forecasts = List<ForecastElement>.from(
         map['list']?.map((x) => ForecastElement.fromMap(x)));

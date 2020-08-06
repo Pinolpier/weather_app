@@ -35,7 +35,6 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
         },
         child: Container(
           height: 80,
-          // color: Colors.purpleAccent,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -75,12 +74,10 @@ class _CustomExpansionPanelState extends State<CustomExpansionPanel> {
         ),
       ),
       AnimatedContainer(
-        //color: Colors.yellowAccent,
         duration: Duration(milliseconds: 300),
         curve: Curves.easeInOut,
         height: isExpanded ? 140 : 0,
         child: ListView.separated(
-            // padding: EdgeInsets.all(10),
             itemCount: widget.forecastWidgetList.length,
             itemBuilder: (context, index) => widget.forecastWidgetList[index],
             scrollDirection: Axis.horizontal,
