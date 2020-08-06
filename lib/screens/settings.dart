@@ -41,6 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         //Tell the weather service to use current location
                         weatherService.fetchWeather(0);
                         prefs.remove("choosenLocation");
+                        prefs.setInt("cityId", 0);
                       }
                       // prefs.setBool("useOwnLocation", value);
                       prefs.setBool("useOwnLocation", value);
@@ -68,8 +69,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 itemBuilder: (context, suggestion) {
                                   if (suggestion.runtimeType !=
                                       WeatherServiceLocation) {
-                                    print(
-                                        "Suggestion in AutoComplete List item Builder is of type ${suggestion.runtimeType}");
                                     return ListTile(
                                       title: Text("Error"),
                                     );
@@ -83,16 +82,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   return suggestionsBox;
                                 },
                                 onSuggestionSelected: (suggestion) {
-                                  print(
-                                      "Suggestion is of type ${suggestion.runtimeType} and");
-                                  print("id is ${suggestion.id} and");
-                                  print("name is ${suggestion.name} and");
                                   // print(
                                   //     "name() is ${suggestion.name()}");
                                   typeAheadController.text = suggestion.name;
                                   prefs.setString(
                                       "choosenLocation", suggestion.name);
                                   prefs.setBool("useOwnLocation", false);
+                                  prefs.setInt("cityId", suggestion.id);
                                   weatherService.fetchWeather(suggestion.id);
                                 })
                           ],

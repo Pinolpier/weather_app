@@ -64,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 String i = prefs.getString("choosenLocation");
                                 if (i == null || i.isEmpty) {
                                   prefs.setBool("useOwnLocation", true);
+                                  prefs.setInt("cityId", 0);
                                 }
                               }
                             });

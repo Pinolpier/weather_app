@@ -7,7 +7,6 @@ Future<List<WeatherServiceLocation>> complete(String beginning) async {
   beginning = beginning.toLowerCase();
   if (list == null || list.allLocations.isEmpty) {
     await loadCities();
-    print("load citites done!");
   }
   List<WeatherServiceLocation> possibilities = [];
   for (WeatherServiceLocation i in list.allLocations) {
@@ -20,7 +19,6 @@ Future<List<WeatherServiceLocation>> complete(String beginning) async {
 
 Future<void> loadCities() async {
   list = WeatherServiceLocationList.fromJson(await _loadFromAssets());
-  print("loaded cities, now returning");
   return;
 }
 

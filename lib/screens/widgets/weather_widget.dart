@@ -19,6 +19,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           builder: (context, weatherService, child) {
             if (prefs.isAvailable() && !prefsChecked) {
               int id = prefs.getInt("cityId");
+              print("prefsAvailability checked now! Id is $id");
               id ??= 0;
               prefsChecked = true;
               weatherService.fetchWeather(id);

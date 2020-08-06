@@ -5,11 +5,11 @@ class SharedPrefs extends ChangeNotifier {
   SharedPreferences prefs;
   List<Function> toDo;
   SharedPrefs() {
+    toDo = [];
     SharedPreferences.getInstance().then((value) {
       prefs = value;
       notifyListeners();
     });
-    toDo = [];
   }
   void setInt(String key, int i) {
     if (prefs == null) {
@@ -17,6 +17,7 @@ class SharedPrefs extends ChangeNotifier {
         this.setInt(key, i);
       });
     } else {
+      print("Setting int with key $key with value $i");
       prefs?.setInt(key, i);
       if (toDo != null && toDo.isNotEmpty) {
         List<Function> copy = toDo;
@@ -75,6 +76,7 @@ class SharedPrefs extends ChangeNotifier {
   }
 
   bool isAvailable() {
+    print("checking prefs availability which is ${prefs != null}");
     return prefs != null;
   }
 

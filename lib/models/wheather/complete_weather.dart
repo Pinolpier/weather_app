@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-
 import 'package:weather_app/models/wheather/current_and_daily_weather.dart';
 import 'package:weather_app/models/wheather/daily.dart';
 import 'package:weather_app/models/wheather/forecast.dart';
@@ -28,6 +26,7 @@ class CompleteWeatherService {
   Stream<CompleteWeatherService> getStream() => controller.stream;
 
   Future<void> fetchWeather(int cityId) async {
+    print("requested to fetch weather for $cityId");
     this.cityId = cityId;
     Forecast forecast = await fetchWeatherForecast(cityId);
     CurrentAndDailyWeather weather = await fetchCurrentAndDailyWeather(
